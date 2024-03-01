@@ -3293,7 +3293,6 @@ body.is-menu-visible #menu {
                 margin-top: 0;
             }
 }
-
 /* Wrapper */
 
 #wrapper > * > .inner {
@@ -3308,4 +3307,19 @@ body.is-menu-visible #menu {
     #wrapper > * > .inner {
         padding: 0 1.25em;
     }
+}
+
+
+.videoWrapper{
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+
+}
+.videoWrapper iframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
