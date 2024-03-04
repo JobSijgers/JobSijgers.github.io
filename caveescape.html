@@ -46,14 +46,9 @@
             <div class="row">
                 <div class="col-8 col-12-medium">
                     <h2>About</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget arcu in neque dapibus
-                        venenatis. Nunc lacinia ultricies quam vel auctor. Phasellus faucibus est enim, sit amet
-                        interdum risus suscipit nec. Aliquam metus purus, aliquet a urna eget, laoreet rhoncus mi. Donec
-                        pretium convallis vehicula. Etiam luctus risus non vulputate sagittis. Cras hendrerit, purus id
-                        aliquam mollis, tellus dolor dapibus magna, id pulvinar mi nisl ut quam. Morbi condimentum
-                        suscipit massa nec congue. Nullam vulputate velit nisl, eu bibendum justo tincidunt a.
-                        Pellentesque posuere, orci at placerat aliquet, augue felis fermentum diam, nec convallis mi
-                        mauris a magna. Orci varius.</p>
+                    <p>Cave Escape is a game created for a school game jam under the theme "The Sound of a Metronome."
+                        It's a turn-based adventure where players navigate a cave. The metronome's rhythm
+                        dictates turns: left for the player, right for enemies. Will you fall, or will you escape?</p>
                 </div>
                 <div class="col-4 col-12-medium">
                     <h2>Project Info</h2>
@@ -68,12 +63,37 @@
             <hr>
             <h2>My contributions</h2>
 
-            <h3>-Insert-</h3>
+            <h3>Pathfinding</h3>
+            <div class="image fit">
+                <img src="images/cavepathfinding.gif" alt>
+            </div>
+            <hr>
+            <p>When creating this project I thought that it would be a fun challenge to create my own pathfinding
+                alogrithm based on the breadth-first search (BFS) algorithm. </p>
+            <a href="https://gist.github.com/JobSijgers/2652e5349e349713fcf767bc606c3654"
+               class="button primary">
+                View script
+            </a>
+            <hr>
 
-            <h3>-Insert-</h3>
-
-            <h3>-Insert-</h3>
-
+            <h3>Room system</h3>
+            <div class="image fit">
+                <img src="images/caverooms.png" alt>
+                <hr>
+            </div>
+            <p>
+                When developing the pathfinding algorithm, I observed significant lag when enemies attempted to locate
+                the player from across the entire map. To address this issue, I decided to divide the map into rooms.
+                Each enemy is only permitted to initiate pathfinding when the player enters the respective room.</p>
+            <a href="https://gist.github.com/JobSijgers/9b5206f5027f26a2f53778d480018545"
+               class="button primary">
+                View script
+            </a>
+            <hr>
+            <a href="https://github.com/JobSijgers/CaveEscape"
+               class="button primary">
+                View project on GitHub
+            </a>
 
         </div>
     </div>
