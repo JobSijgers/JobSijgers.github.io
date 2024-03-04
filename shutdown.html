@@ -1,15 +1,12 @@
 <!DOCTYPE HTML>
-<!--
-	Phantom by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+
 <html>
 <head>
     <title>Shutdown</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
     <link rel="stylesheet" href="assets/css/main.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css"/>
     </noscript>
@@ -46,14 +43,17 @@
             <div class="row">
                 <div class="col-8 col-12-medium">
                     <h2>About</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus eget arcu in neque dapibus
-                        venenatis. Nunc lacinia ultricies quam vel auctor. Phasellus faucibus est enim, sit amet
-                        interdum risus suscipit nec. Aliquam metus purus, aliquet a urna eget, laoreet rhoncus mi. Donec
-                        pretium convallis vehicula. Etiam luctus risus non vulputate sagittis. Cras hendrerit, purus id
-                        aliquam mollis, tellus dolor dapibus magna, id pulvinar mi nisl ut quam. Morbi condimentum
-                        suscipit massa nec congue. Nullam vulputate velit nisl, eu bibendum justo tincidunt a.
-                        Pellentesque posuere, orci at placerat aliquet, augue felis fermentum diam, nec convallis mi
-                        mauris a magna. Orci varius.</p>
+                    <p>
+
+                        "Shutdown" is an enjoyable twin-stick shooter game with three exciting levels where your mission
+                        is to defuse a bomb. As you face off against waves of enemies, your goal is to clear obstacles
+                        and find the bomb before time runs out.
+
+                        During the project, I served as the SCRUM master for six weeks out of the eight. Our team
+                        included two developers (myself and Nils Hanssens) and three skilled artists: <a
+                            href="https://www.artstation.com/artsystoneb"> Stijn Bakker</a>, Louisa Burfitt, and Tim
+                        Slappendel. Together, we collaborated to create this fun and engaging game.
+
                 </div>
                 <div class="col-4 col-12-medium">
                     <h2>Project Info</h2>
@@ -69,13 +69,103 @@
             <h2>My contributions</h2>
 
             <h3>Procedural Animations</h3>
+            <span class="image fit">
+                <img src="images/ProceduralAnimations.gif" alt>
+            </span>
+            <hr>
+            <div class="row">
+                <div class="col-4 col-12-medium">
+                    <p>During development, I saw adding procedural animations as both an enjoyable addition to the game
+                        and a personal challenge. It seemed like a fun feature to incorporate, and I also viewed it as
+                        an opportunity to push my skills and explore new techniques in animation. The most challenging
+                        part was refining the leg movement animation, which required a lot of time for careful
+                        adjustments and fine-tuning. Because of these challenges, we decided to prioritize fine-tuning
+                        other
+                        features due to time constraints.</p>
+                </div>
+                <div class="col-8 col-12-medium">
+            <pre>
+                <code>
+    private IEnumerator MoveLeg(int index, Vector3 targetPoint)
+    {
+        legsGrounded[index] = false;
 
+        Vector3 startPos = currentLegLocations[index];
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            // Calculate the vertical offset based on time and step height
+            float yOffset = Mathf.Sin(t * Mathf.PI) * stepHeight;
+
+            // Interpolate horizontally towards the target position
+            t += Time.deltaTime / stepSpeed;
+            legs[index].position = Vector3.Lerp(startPos, targetPoint, t);
+
+            // Apply the vertical offset
+            legs[index].position += Vector3.up * yOffset;
+
+            yield return null;
+        }
+        legs[index].position = targetPoint;
+        currentLegLocations[index] = legs[index].position;
+        legsGrounded[index] = true;
+    }</code>
+            </pre>
+                    <a href="https://gist.github.com/JobSijgers/59b6b00fd19bd8117be3f872ae4e0959"
+                       class="button primary">
+                        View whole script
+                    </a>
+                </div>
+            </div>
+            <hr>
             <h3>Door System</h3>
+            <div class="row gtr-uniform">
+                <div class=col4>
+            <span class="image fit">
+                <img src="images/slidingdoor.gif" alt>
+            </span>
+                </div>
+                <div class=col4>
+            <span class="image fit">
+                 <img src="images/rotatingdoor.gif" alt>
+            </span>
+                </div>
+                <div class=col4>
+            <span class="image fit">
+                <img src="images/doorcustomeditor.gif" alt>
+            </span>
+                </div>
+            </div>
+            <hr>
+            <p>During development, we needed two types of doors: a rotating door and a sliding door. While they could
+                have been assigned different classes, I opted to create a single script to handle both. To achieve this,
+                I utilized a custom editor that serializes variables based on the selected door type. Although not the
+                most performance-efficient solution, I prioritized ease of use for our artists.</p>
+            <a href="https://gist.github.com/JobSijgers/b6a54aa22f1fff249d40f4c78466fbfe"
+               class="button primary">
+                View script
+            </a>
+            <hr>
 
-            <h3>Elevator Animations</h3>
+            <h3>Other features</h3>
+            <ul>
+                <li>Menu's</li>
+                <li>Keycard system</li>
+                <li>Player Movement</li>
+                <li>Player Weapon</li>
+                <li>UI implementation</li>
+                <li>Audio system</li>
+            </ul>
 
+            <hr>
 
+            <a href="https://github.com/JobSijgers/Shutdown"
+               class="button primary">
+                View entire project
+            </a>
         </div>
+
     </div>
 
 
@@ -112,6 +202,7 @@
 <script src="assets/js/breakpoints.min.js"></script>
 <script src="assets/js/util.js"></script>
 <script src="assets/js/main.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 </body>
 </html>
