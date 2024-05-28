@@ -36,6 +36,13 @@
     <div id="main">
         <div class="inner">
             <h1>Project Cleaver</h1>
+            <div class="videoWrapper">
+                <iframe src="https://www.youtube.com/embed/opXwcT39RLU?si=YjEixjHXiCfi8d14&autoplay=1&mute=1&loop=1"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; loop"
+                        allowfullscreen></iframe>
+            </div>
             <hr>
             <div class="row">
                 <div class="col-8 col-12-medium">
@@ -61,11 +68,11 @@
             <hr>
             <h2>My contributions</h2>
 
-            <h3>Combat System</h3>
+            <h3>Weapon System</h3>
             <hr>
-            <div class="image fit">
-                <img src="images/combatsystem.gif" alt>
-            </div>
+            <span class="image fit">
+                <img src="images/WeaponShowcase.gif" alt>
+            </span>
             <div class="row">
                 <div class="col-5 col-12-medium">
                     When developing this game we needed a simple way to add multiple weapons to the game. This was done
@@ -116,7 +123,7 @@ void UHealthSystem::TakeDamage(int32 amount)
                 <div class="col-5 col-12-medium">
                     During development of the game we wanted the ability to lock the players progression behind certain
                     objectives this was done using a gate. The gate can be opened using a blueprintable function. This
-                    component currently always takes the owner to move but this can easily be changes to a variable.
+                    component currently always takes the owner to move but this can easily be changed to a variable.
                 </div>
                 <div class="col-7 col-12-medium">
                     <pre>
@@ -144,11 +151,11 @@ void UHealthSystem::TakeDamage(int32 amount)
             <h3>Enemy locked event</h3>
             <div class="row">
                 <div class="col-5 col-12-medium">
-                    Our game designer asked for the ability to track the amount of enemies currently living in a certain
-                    place. To solve this, we created the EnemyLockedEvent component. This component acts like a
-                    listener. It keeps an ear out for whenever an enemy dies (the
-                    enemy's OnDeath event). But it only listens to enemies on a special list created by the designer.
-                    This way, the component can track exactly how many of those designated enemies are still alive.
+                    We wanted the ability to track the amount of enemies currently living in a certain
+                    place. To solve this, I created the EnemyLockedEvent component. This component acts like a
+                    listener. It keeps an ear out for whenever an enemy dies (the enemy's OnDeath event). But it only
+                    listens to enemies on a special list created by the designer. This way, the component can track
+                    exactly how many of those designated enemies are still alive.
                 </div>
                 <div class="col-7 col-12-medium">
                     <pre>
