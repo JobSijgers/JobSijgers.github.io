@@ -10,6 +10,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
     <link rel="stylesheet" href="assets/css/main.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
     <noscript>
         <link rel="stylesheet" href="assets/css/noscript.css"/>
     </noscript>
@@ -35,37 +36,51 @@
     <div id="main">
         <div class="inner">
             <h1>Project Cleaver</h1>
+            <div class="videoWrapper">
+                <iframe src="https://www.youtube.com/embed/opXwcT39RLU?si=YjEixjHXiCfi8d14&autoplay=1&mute=1&loop=1"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; loop"
+                        allowfullscreen></iframe>
+            </div>
             <hr>
             <div class="row">
                 <div class="col-8 col-12-medium">
                     <h2>About</h2>
-                    <p>Project Cleaver is a work in progress vertical slice of a first person RPG. In this project I plan to learn more
-                        about Blueprints and C++.</p>
+                    <p>Project cleaver is a vertical slice of a first person combat game. Created in unreal engine using
+                        both Blueprints and C++.</p>
                 </div>
                 <div class="col-4 col-12-medium">
                     <h2>Project Info</h2>
                     <ul>
                         <li>Role: Game Programmer</li>
                         <li>Team Size: 11</li>
-                        <li>Project Started: Feb 26, 2024</li>
+                        <li>Project Duration: 6 weeks</li>
                         <li>Engine: Unreal Engine, C++</li>
+
                     </ul>
+                    <a href=""
+                       class="button primary">
+                        View project on Github
+                    </a>
                 </div>
             </div>
             <hr>
             <h2>My contributions</h2>
 
-            <h3>Combat System</h3>
+            <h3>Weapon System</h3>
             <hr>
-            <div class="image fit">
-                <img src="images/combatsystem.gif" alt>
-            </div>
+            <span class="image fit">
+                <img src="images/WeaponShowcase.gif" alt>
+            </span>
             <div class="row">
                 <div class="col-5 col-12-medium">
-                    When planning for this project we wanted to have a modular weapons system where you can easily
-                    create more weapons for the game just by creating a data asset. Using this data asset the component
-                    will generate the weapons based on given values. The blueprint shown here handles the hit
-                    registration of the attack.
+                    When developing this game we needed a simple way to add multiple weapons to the game. This was done
+                    using Unreal Engine's Data Assets, in this data asset you could enter every value a weapon could
+                    have. If you want to use a weapon you would need to add a WeaponComponent to your actor. This
+                    handles everything regarding the weapon. This component works together with the Health System I
+                    created to have an easy-to-use and scalable combat system.
+
                 </div>
                 <div class="col-7 col-12-medium">
                     <div class="videoWrapper">
@@ -77,18 +92,102 @@
             <h3>Health System</h3>
             <div class="row">
                 <div class="col-5 col-12-medium">
-                    When you want combat you want a health system, for this I made 1 component that works for
-                    everything that needs health. The object itself can handle what it wants to do based on the
-                    'OnDamageTaken' and 'OnDeath' events. The blueprint shown here shows the TakeDamage function.
+                    The Health system was the first thing that I created in C++. I wanted this component to be dynamic
+                    and easy to use. This component makes use of Delegates to communicate updates of the health to
+                    blueprints.
                 </div>
                 <div class="col-7 col-12-medium">
-                    <div class="videoWrapper">
-                        <iframe src="https://blueprintue.com/render/ke8mtevg/" scrolling="no" allowfullscreen></iframe>
-                    </div>
+                    <pre>
+                        <code>
+void UHealthSystem::TakeDamage(int32 amount)
+{
+	CurrentHealth -= abs(amount);
+
+	OnDamageTaken.Broadcast(CurrentHealth);
+	OnHealthUpdate.Broadcast(GetNormalizedHealth());
+
+	if (CurrentHealth <= 0)
+		OnDeath.Broadcast();
+}</code>
+                    </pre>
+                    <a href="https://gist.github.com/JobSijgers/3443bf76bf0e035031dcb17e8eee1a16"
+                       class="button primary">
+                        View whole script
+                    </a>
                 </div>
             </div>
+            <hr>
+
+            <h3>Door system</h3>
+            <div class="row">
+                <div class="col-5 col-12-medium">
+                    During development of the game we wanted the ability to lock the players progression behind certain
+                    objectives this was done using a gate. The gate can be opened using a blueprintable function. This
+                    component currently always takes the owner to move but this can easily be changed to a variable.
+                </div>
+                <div class="col-7 col-12-medium">
+                    <pre>
+                        <code>void UDoorSystem::MoveDoor(float MoveLerpAlpha)
+{
+	const FVector NewLocation = FVector(FMath::Lerp(StartLocation, EndLocation, MoveLerpAlpha));
+	const FRotator NewRotator = FRotator(FMath::Lerp(StartRotator, EndRotator, MoveLerpAlpha));
+
+	GetOwner()->GetRootComponent()->SetWorldLocationAndRotation(NewLocation, NewRotator);
+	if (MoveLerpAlpha >= 1)
+	{
+		DoorState = Open;
+		SetComponentTickEnabled(false);
+	}
+}</code>
+                    </pre>
+                    <a href="https://gist.github.com/JobSijgers/e1076d66cf0cfdad690ace20f4ef8d46"
+                       class="button primary">
+                        View whole script
+                    </a>
+                </div>
+            </div>
+            <hr>
+
+            <h3>Enemy locked event</h3>
+            <div class="row">
+                <div class="col-5 col-12-medium">
+                    We wanted the ability to track the amount of enemies currently living in a certain
+                    place. To solve this, I created the EnemyLockedEvent component. This component acts like a
+                    listener. It keeps an ear out for whenever an enemy dies (the enemy's OnDeath event). But it only
+                    listens to enemies on a special list created by the designer. This way, the component can track
+                    exactly how many of those designated enemies are still alive.
+                </div>
+                <div class="col-7 col-12-medium">
+                    <pre>
+                        <code>void UEnemyLockedEvent::BeginPlay()
+{
+	Super::BeginPlay();
+	AliveEnemies = Enemies.Num();
+	for (const auto Enemy : Enemies)
+	{
+		UHealthSystem* HealthSystem = Enemy-&gt;GetComponentByClass&lt;UHealthSystem&gt;();
+
+		if (!HealthSystem) return;
+
+		HealthSystem-&gt;OnDeath.AddDynamic(this, &amp;UEnemyLockedEvent::UpdateThreshold);
+	}
+}</code>
+                    </pre>
+                </div>
+            </div>
+            <hr>
+            <h3>Other features</h3>
+            <ul>
+                <li>UI Integration</li>
+                <li>Interact Shader</li>
+            </ul>
 
 
+            <h2>What I learned from this project</h2>
+
+            <p>In this project I learned how to make my code more reusable using actor components and events. In the
+                future I want to continue creating more reusable components and begin working on tools to improve the
+                workflow.</p>
         </div>
     </div>
 
@@ -97,9 +196,10 @@
     <footer id="footer">
         <div class="inner">
             <section>
-                <h2>Contact me</h2>
+                <h2>About me & Contact</h2>
                 <ul>
-                    <li>Email: Jobsijgers@gmail.com</li>
+                    <li><a href="aboutme.html" style="color: #009c28;">About Me</a></li>
+                    <li>Email: <a href="mailto:job@sijgers.net">job@sijgers.net</a></li>
                 </ul>
             </section>
 
@@ -108,12 +208,16 @@
                 <ul class="icons">
                     <li><a href="https://github.com/JobSijgers" class="icon brands style2 fa-github"><span
                             class="label">GitHub</span></a></li>
-                    <li><a href="https://www.linkedin.com/in/job-sijgers-385202243/"
+                    <li><a href="https://www.linkedin.com/in/jobsijgers/"
                            class="icon brands style2 fa-linkedin"><span
                             class="label">Linkedin</span></a></li>
 
                 </ul>
             </section>
+            <ul class="copyright">
+                <li>Design: HTML5 UP</li>
+            </ul>
+
         </div>
     </footer>
 
@@ -125,6 +229,7 @@
 <script src="assets/js/breakpoints.min.js"></script>
 <script src="assets/js/util.js"></script>
 <script src="assets/js/main.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
 </body>
 </html>
