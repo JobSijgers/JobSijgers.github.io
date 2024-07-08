@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <title>Shutdown</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css"/>
+    </noscript>
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <div class="inner">
+            <!-- Nav -->
+            <nav>
+                <ul>
+                    <li><a href=index.html>Home</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+            <h1>Shutdown</h1>
+            <div class="videoWrapper">
+                <iframe src="https://www.youtube.com/embed/myHeuxWApQE?si=i6Shq7u9oBPhqTe7&autoplay=1&mute=1&loop=1"
+                        title="YouTube video player"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; loop"
+                        allowfullscreen></iframe>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-8 col-12-medium">
+                    <h2>About</h2>
+                    <p>
+
+                        "Shutdown" is a twin-stick shooter game with three exciting levels where your mission
+                        is to defuse a bomb. As you fight against waves of enemies, your goal is to clear obstacles
+                        and find the bomb before time runs out.
+                    </p>
+                    <P>During the project, I served as the SCRUM master for six weeks out of the eight. Our team
+                        included two developers (myself and Nils Hanssens) and three skilled artists: <a
+                                href="https://www.artstation.com/artsystoneb"> Stijn Bakker</a>, Louisa Burfitt, and Tim
+                        Slappendel. Together, we collaborated to create this fun and engaging game.
+
+                    </P>
+
+
+                </div>
+                <div class="col-4 col-12-medium">
+                    <h2>Project Info</h2>
+                    <ul>
+                        <li>Role: Game Programmer</li>
+                        <li>Team Size: 5</li>
+                        <li>Project Duration: 8 Weeks</li>
+                        <li>Engine: Unity C#</li>
+
+                    </ul>
+                    <a href="https://github.com/JobSijgers/Shutdown"
+                       class="button primary">
+                        View project on GitHub
+                    </a>
+                </div>
+            </div>
+            <hr>
+            <h2>My contributions</h2>
+
+            <h3>Procedural Animations</h3>
+            <span class="image fit">
+                <img src="images/ProceduralAnimations.gif" alt>
+            </span>
+            <hr>
+            <div class="row">
+                <div class="col-4 col-12-medium">
+                    <p>During development, I saw adding procedural animations as both an enjoyable addition to the game
+                        and a personal challenge. It seemed like a fun feature to incorporate, and I also viewed it as
+                        an opportunity to push my skills and explore new techniques in animation. The most challenging
+                        part was refining the leg movement animation, which required a lot of time for careful
+                        adjustments and fine-tuning. Because of these challenges, we decided to prioritize fine-tuning
+                        other
+                        features due to time constraints.</p>
+                    <a href="https://gist.github.com/JobSijgers/59b6b00fd19bd8117be3f872ae4e0959"
+                       class="button primary">
+                        View whole script
+                    </a>
+                </div>
+                <div class="col-8 col-12-medium">
+            <pre>
+                <code>
+    private IEnumerator MoveLeg(int index, Vector3 targetPoint)
+    {
+        legsGrounded[index] = false;
+
+        Vector3 startPos = currentLegLocations[index];
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            // Calculate the vertical offset based on time and step height
+            float yOffset = Mathf.Sin(t * Mathf.PI) * stepHeight;
+
+            // Interpolate horizontally towards the target position
+            t += Time.deltaTime / stepSpeed;
+            legs[index].position = Vector3.Lerp(startPos, targetPoint, t);
+
+            // Apply the vertical offset
+            legs[index].position += Vector3.up * yOffset;
+
+            yield return null;
+        }
+        legs[index].position = targetPoint;
+        currentLegLocations[index] = legs[index].position;
+        legsGrounded[index] = true;
+    }</code>
+            </pre>
+                </div>
+            </div>
+            <hr>
+            <h3>Door System</h3>
+            <span class="image fit">
+                <img src="images/Doorsystem.gif" alt>
+            </span>
+            <hr>
+            <p>During development, we needed two types of doors: a rotating door and a sliding door. While they could
+                have been assigned different classes, I opted to create a single script to handle both. To achieve this,
+                I utilized a custom editor that serializes variables based on the selected door type. Although not the
+                most performance-efficient solution, I prioritized ease of use for our artists.</p>
+            <a href="https://gist.github.com/JobSijgers/b6a54aa22f1fff249d40f4c78466fbfe"
+               class="button primary">
+                View script
+            </a>
+            <hr>
+
+            <h3>Other features</h3>
+            <ul>
+                <li>Menu's</li>
+                <li>Keycard system</li>
+                <li>Player Movement</li>
+                <li>Player Weapon</li>
+                <li>UI implementation</li>
+                <li>Audio system</li>
+            </ul>
+
+            <hr>
+            <a href="https://github.com/JobSijgers/Shutdown"
+               class="button primary">
+                View project on GitHub
+            </a>
+
+            <hr>
+            <h2>What I learned from this project</h2>
+            <p>
+                In this project, I learned how to collaborate more effectively with both artists and developers. A
+                key lesson I took away from this experience was the importance of adhering to the Single
+                Responsibility Principle in my code. Throughout the project, I found myself frequently navigating
+                through different scripts to locate specific implementations, as many of them attempted to handle
+                multiple tasks simultaneously. </p>
+        </div>
+
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <section>
+                <h2>About me & Contact</h2>
+                <ul>
+                    <li><a href="aboutme.html" style="color: #009c28;">About Me</a></li>
+                    <li>Email: <a href="mailto:job@sijgers.net">job@sijgers.net</a></li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Also me</h2>
+                <ul class="icons">
+                    <li><a href="https://github.com/JobSijgers" class="icon brands style2 fa-github"><span
+                            class="label">GitHub</span></a></li>
+                    <li><a href="https://www.linkedin.com/in/jobsijgers/"
+                           class="icon brands style2 fa-linkedin"><span
+                            class="label">Linkedin</span></a></li>
+
+                </ul>
+            </section>
+            <ul class="copyright">
+                <li>Design: HTML5 UP</li>
+            </ul>
+
+        </div>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>
