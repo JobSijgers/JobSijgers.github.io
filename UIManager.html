@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+    <title>UI Manager</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css"/>
+    </noscript>
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <div class="inner">
+            <!-- Nav -->
+            <nav>
+                <ul>
+                    <li><a href=index.html>Home</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- Main -->
+    <div id="main">
+        <div class="inner">
+            <h1>UI Manager</h1>
+
+            <div class="row">
+                <div class="col-6 col-12-medium">
+                    <h2>About</h2>
+                    <p>
+                        When we were working on Fishy Business I was getting tired of writing the same UI code over and
+                        over. So I decided to create a UI Manager that would handle all the UI in the game. After
+                        creating the system for the game I decided to make it more generic, so I could use it in future
+                        projects.</p>
+                    <p>The system consists of 3 different scripts:</p>
+                    <ul>
+                        <li>ViewManager, responsible for managing all the views.</li>
+                        <li>View, a game view (e.g. hud, pause menu, etc.)</li>
+                        <li>ViewComponent, an element withing a game view (e.g. Money UI)</li>
+                    </ul>
+                </div>
+                <div class="col-6 col-12-medium">
+                        <span class="image fit">
+                        <img src="images/UIManager.gif" alt="">
+                        <a href="fishybusiness.html">UI from Fishy Business</a>
+                    </span>
+                </div>
+            </div>
+
+
+            <hr>
+            <h3>View Manager</h3>
+            <div class="row">
+                <div class="col-6 col-12-medium">
+                    <p>
+                        The View Manager is a system that manages the different views in the game. It handles
+                        transitions between different in-game screens and maintains a history for easy backtracking.
+                        You can open views by calling <code>ShowView</code> with either the view's type or a specific
+                        view instance. When using <code>ShowView</code>, you can choose the option to record the current
+                        view in the history stack, allowing for easy backwards navigation.
+
+                    </p>
+                    <a href="https://gist.github.com/JobSijgers/30be7d9263c181c5736b3d1d02212cbc"
+                       class="button primary">
+                        View whole script
+                    </a>
+                </div>
+                <div class="col-6 col-12-medium">
+                    <pre>
+<code>private readonly Stack&lt;View&gt; viewHistory = new();
+private View activeView;
+public void ShowView&lt;T&gt;(bool saveInHistory = true)
+{
+    foreach (View view in allViews)
+    {
+        if (view is not T)
+            continue;
+        if (activeView != null)
+        {
+            if (saveInHistory)
+            {
+                instance.viewHistory.Push(activeView);
+            }
+            activeView.Hide();
+        }
+
+        view.Show();
+        activeView = view;
+    }
+}</code>
+                    </pre>
+                </div>
+            </div>
+            <hr>
+            <h3>View</h3>
+            <div class="row">
+                <div class="col-6 col-12-medium">
+                    <p>
+                        The View class is the base class for all views in the game. It contains methods for showing and
+                        hiding the view. Each view has a reference to all the components that need to be enabled when
+                        the view is shown.
+                        Let's say you have a money UI element, this element will be disabled when the view is hidden and
+                        enabled when the view is shown. This way you can re-use the same UI elements in different views.
+                    </p>
+                    <a href="https://gist.github.com/JobSijgers/30be7d9263c181c5736b3d1d02212cbc"
+                       class="button primary">
+                        View whole script
+                    </a>
+                </div>
+                <div class="col-6 col-12-medium">
+                    <pre>
+<code>[SerializeField] private ViewComponent[] viewComponents;
+public virtual void Show()
+    {
+        gameObject.SetActive(true);
+        ShowViewComponents();
+    }
+
+    public virtual void Hide()
+    {
+        gameObject.SetActive(false);
+        HideViewComponents();
+    }</code>
+                    </pre>
+                </div>
+            </div>
+            <hr>
+            <h3>View Component</h3>
+            <div class="row">
+                <div class="col-6 col-12-medium">
+                    <p>
+                        The ViewComponent class is the base class for all components that are part of a view. It
+                        contains methods for initializing, showing and hiding the component.
+                    </p>
+                    <a href="https://gist.github.com/JobSijgers/30be7d9263c181c5736b3d1d02212cbc"
+                       class="button primary">
+                        View whole script
+                    </a>
+                </div>
+                <div class="col-6 col-12-medium">
+                    <pre>
+<code>public abstract class ViewComponent : MonoBehaviour
+{
+    public virtual void Initialize() { }
+    public abstract void Show();
+    public abstract void Hide();
+}</code>
+                    </pre>
+                </div>
+            </div>
+            <hr>
+        </div>
+
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <section>
+                <h2>About me & Contact</h2>
+                <ul>
+                    <li><a href="aboutme.html" style="color: #009c28;">About Me</a></li>
+                    <li>Email: <a href="mailto:job@sijgers.net">job@sijgers.net</a></li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Also me</h2>
+                <ul class="icons">
+                    <li><a href="https://github.com/JobSijgers" class="icon brands style2 fa-github"><span
+                            class="label">GitHub</span></a></li>
+                    <li><a href="https://www.linkedin.com/in/jobsijgers/"
+                           class="icon brands style2 fa-linkedin"><span
+                            class="label">Linkedin</span></a></li>
+
+                </ul>
+            </section>
+            <ul class="copyright">
+                <li>Design: HTML5 UP</li>
+            </ul>
+
+        </div>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+</body>
+</html>

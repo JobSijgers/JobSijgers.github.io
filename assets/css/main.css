@@ -275,7 +275,7 @@ pre {
     -webkit-overflow-scrolling: touch;
     font-family: "Courier New", monospace;
     font-size: 0.9em;
-    margin: 0 0 2em 0;
+    margin: 0 0 0 0;
 
 }
 
@@ -2820,7 +2820,7 @@ body.is-touch .tiles article .content {
 /* Header */
 
 #header {
-    padding: 8em 0 0.1em 0;
+    padding: 6em 0 0.1em 0;
 }
 
 #header .logo {
