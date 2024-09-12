@@ -177,6 +177,12 @@ h1 a {
     color: inherit;
 }
 
+.tags {
+    position: absolute;
+    bottom: 1em;
+    left: 1em;
+}
+
 @media screen and (max-width: 736px) {
 
     h1 {
@@ -2112,6 +2118,7 @@ form > .fields > .field.quarter {
     form > .fields > .field.quarter {
         width: calc(100% - 1.5em);
     }
+
 }
 
 label {
@@ -2356,6 +2363,7 @@ input[type="radio"] + label:before {
         margin: 0 0 2em 0;
     }
 }
+
 
 /* Table */
 
@@ -2772,6 +2780,15 @@ body.is-touch .tiles article .content {
         width: calc(33.33333% - 1.25em);
         margin: 1.25em 0 0 1.25em;
     }
+
+    .tiles article.highlight {
+        width: calc(50% - 1.25em);
+        margin: 1.25em 0 0 1.25em;
+    }
+    .tiles article.featured {
+        width: calc(100% - 1.25em);
+        margin: 1.25em 0 0 1.25em;
+    }
 }
 
 @media screen and (max-width: 980px) {
@@ -2781,6 +2798,11 @@ body.is-touch .tiles article .content {
     }
 
     .tiles article {
+        width: calc(50% - 2.5em);
+        margin: 2.5em 0 0 2.5em;
+    }
+
+    .tiles article.highlight {
         width: calc(50% - 2.5em);
         margin: 2.5em 0 0 2.5em;
     }
@@ -2803,6 +2825,15 @@ body.is-touch .tiles article .content {
         -ms-transform: scale(1.0);
         transform: scale(1.0);
     }
+
+    .tiles article.highlight {
+        width: 100%;
+        margin: 1.25em 0 0 1.25em;
+    }
+    .tiles article.featured {
+        width: 100%;
+        margin: 1.25em 0 0 1.25em;
+    }
 }
 
 @media screen and (max-width: 480px) {
@@ -2814,6 +2845,22 @@ body.is-touch .tiles article .content {
     .tiles article {
         width: 100%;
         margin: 1.25em 0 0 0;
+    }
+
+    .tiles article.featured {
+        width: 100%;
+        margin: 1.25em 0 0 0;
+    }
+
+    .tiles article.highlight {
+        width: 100%;
+        margin: 1.25em 0 0 0;
+    }
+
+    .tags {
+        position: absolute;
+        bottom: .3em;
+        left: .1em;
     }
 }
 
@@ -3327,8 +3374,3 @@ body.is-menu-visible #menu .close {
     height: 100%;
 }
 
-.tags {
-    position: absolute; /* This allows you to position the tags div at the bottom left of the content div */
-    bottom: 1em;
-    left: 1em;
-}
