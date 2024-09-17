@@ -2858,9 +2858,7 @@ body.is-touch .tiles article .content {
     }
 
     .tags {
-        position: absolute;
-        bottom: .3em;
-        left: .1em;
+        display: none;
     }
 }
 
